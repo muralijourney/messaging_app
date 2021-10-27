@@ -13,19 +13,19 @@ const initialState = {
       name: "MuraliTharan",
       message: 'Hi Murali',
       count: 1,
-      id: 0
+      id: 1
     },
     {
       name: "Mukesh",
       message: 'Hi Mukesh',
       count: 3,
-      id: 1
+      id: 2
     },
     {
       name: "Chris",
       message: 'Hi Chirs',
       count: 3,
-      id: 2
+      id: 3
     }
   ]
 }
