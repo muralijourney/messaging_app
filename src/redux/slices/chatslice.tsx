@@ -4,10 +4,21 @@ const initialState = {
   test: false,
   loading: 'idle',
   fetchData: {},
-  messageInsertStatus:false,
-  message:[],
-  selectedUserName:{},
+  messageInsertStatus: false,
+  message: [],
+  selectedUserName: {},
+  cureentUser: 1,
+  allUsers: [
+    1, 2, 3
+  ],
+  firends: [2, 3]
+
+
 }
+
+
+
+
 
 const chatSlice = createSlice({
   name: 'chat',
@@ -26,23 +37,23 @@ const chatSlice = createSlice({
     //     ...action.payload,
     //   })
     // },
-  
+
     fetchComplete(state, action) {
       if (state.loading === 'pending') {
         state.loading = 'idle'
         state.fetchData = action.payload
       }
     },
-    addMessage:(state:any,params:any) =>{
-       console.log("asfkkdkdsakfkasdf"+JSON.stringify(params))
-       state.message.push(params.payload[0])
+    addMessage: (state: any, params: any) => {
+      console.log("asfkkdkdsakfkasdf" + JSON.stringify(params))
+      state.message.push(params.payload[0])
 
     },
-   selectedName:(state,action)=>{
-    state.selectedUserName = action.payload;
-    console.log("resule"+JSON.stringify(state.selectedUserName))
-   },
-    
+    selectedName: (state, action) => {
+      state.selectedUserName = action.payload;
+      console.log("resule" + JSON.stringify(state.selectedUserName))
+    },
+
     purgeChatSlice: state => initialState,
   },
 })

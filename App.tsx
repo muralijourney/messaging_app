@@ -11,29 +11,32 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/home';
+import LoginScreen from './src/Login';
 import ChatScreen from './src/chat';
-import {Provider} from "react-redux"
-import {Store} from "./src/redux/store"
-import {Text} from 'react-native'
+import { Provider } from "react-redux"
+import { Store } from "./src/redux/store"
+import { Text } from 'react-native'
 
 type RootStackParamList = {
-  HomeScreen : undefined;
-  ChatScreen:undefined;
+  HomeScreen: undefined;
+  ChatScreen: undefined;
+  Login: undefined;
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
-const App = () =>{
-   return (
-   <Provider store={Store}>
-    <NavigationContainer>
-    <RootStack.Navigator  initialRouteName="HomeScreen">
-      <RootStack.Screen name="HomeScreen" component={HomeScreen}  />
-      <RootStack.Screen options={{ headerLeft: () => { return null;},headerShown:false}}  name="ChatScreen" component={ChatScreen}  />
-    </RootStack.Navigator>
-   </NavigationContainer>
-   </Provider>
-   );
- }
+const App = () => {
+  return (
+    <Provider store={Store}>
+      <NavigationContainer>
+        <RootStack.Navigator initialRouteName="Login" >
+          <RootStack.Screen name="Login" component={LoginScreen} />
+          <RootStack.Screen name="HomeScreen" component={HomeScreen} />
+          <RootStack.Screen options={{ headerLeft: () => { return null; }, headerShown: false }} name="ChatScreen" component={ChatScreen} />
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  );
+}
 
- export default App;
+export default App;
