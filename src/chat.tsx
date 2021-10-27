@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat } from '../lib/react-native-gifted-chat';
 import { Store } from '../src/redux/store'
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage, selectedName } from './redux/slices/chatslice'
@@ -17,7 +17,7 @@ const ChatScreen = (props: any) => {
     const { message } = state.chat;
     var object: any = [];
     message.map(function (val, index) {
-      if (message[index].payload.key == "1," + selectedUser.id || message[index].payload.key == selectedUser.id + ",1") {
+      if (message[index].payload.key == "1,"+selectedUser.id || message[index].payload.key == selectedUser.id+",1") {
         object.push(message[index].payload.array);
       }
     });
