@@ -21,7 +21,7 @@ const ChatScreen = (props:any) => {
               object.push(message[index].payload.array);
            }
        });  
-       setMessage(object);
+       setMessage(object.reverse());
     },[])
 
     const handleSend = useCallback((messages = []) => {
@@ -52,6 +52,7 @@ const ChatScreen = (props:any) => {
           isKeyboardInternallyHandled={false}
           keyboardShouldPersistTaps='never'
           inverted={true}
+          renderUsernameOnMessage={true}
           onSend={newMessage => handleSend(newMessage)}
           user={{ _id:selectedUser.id,name:selectedUser.name}}
         />
