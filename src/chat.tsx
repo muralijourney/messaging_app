@@ -1,43 +1,39 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { GiftedChat, Message } from 'react-native-gifted-chat';
+import { GiftedChat } from 'react-native-gifted-chat';
 import { Store } from '../src/redux/store'
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage, selectedName } from './redux/slices/chatslice'
 import { Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import userListStyle from './component/molecules/userListCardDetails/userListCardDetailsStyle';
 
 const ChatScreen = (props: any) => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState([])
-
-
-
-
+  const selectedUser = props.route.params.selectedUser;
 
   useEffect(() => {
     const state = Store.getState();
     const { message } = state.chat;
-    console.log(message)
-    setMessage(message)
+    var object: any = [];
+    message.map(function (val, index) {
+      if (message[index].payload.key == "1," + selectedUser.id || message[index].payload.key == selectedUser.id + ",1") {
+        object.push(message[index].payload.array);
+      }
+    });
+    setMessage(object.reverse());
   }, [])
 
   const handleSend = useCallback((messages = []) => {
-    dispatch(addMessage(messages));
-    setMessage((previousMessages: any) => GiftedChat.append(previousMessages, messages))
-  }, [])
-
-
+    var messageObject = { "key": "1," + selectedUser.id, "array": messages[0] };  /// later we will add login 
+    dispatch(addMessage(messageObject));
+    setMessage(previousMessages => GiftedChat.append(previousMessages, messages))
+  }, [message])
 
   const handleBackButtonClick = () => {
     props.navigation.goBack(null);
   }
 
-
-
-
-  const selectedUser = props.route.params.selectedUser;
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.header}>
@@ -46,18 +42,7 @@ const ChatScreen = (props: any) => {
             <Icon name="arrow-back" size={16} color="#000" />
           </TouchableOpacity>
           <View style={styles.circleView}>
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 40 / 2,
-                overflow: "hidden",
-
-              }}
-              source={{
-                uri: 'https://source.unsplash.com/random',
-              }}
-            />
+            <Icon name="zoom-out-map" size={30} color="#000" />
           </View>
           <Text style={styles.textalign}>{selectedUser.name}</Text>
         </View>
@@ -67,6 +52,7 @@ const ChatScreen = (props: any) => {
         isKeyboardInternallyHandled={false}
         keyboardShouldPersistTaps='never'
         inverted={true}
+        renderUsernameOnMessage={true}
         onSend={newMessage => handleSend(newMessage)}
         user={{ _id: selectedUser.id, name: selectedUser.name }}
       />
@@ -78,9 +64,7 @@ const ChatScreen = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    marginLeft: 10
-
+    flexDirection: 'row'
   },
   circleView: {
     borderWidth: 1,
@@ -93,8 +77,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: '#fff',
     borderRadius: 50,
-    marginLeft: 10,
-
+    marginLeft: 10
   },
   header: {
     backgroundColor: '#f8f8f8',
@@ -107,9 +90,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     elevation: 2,
-    marginVertical: 10,
     position: 'relative'
-
   },
   textalign: {
     fontSize: 15,
