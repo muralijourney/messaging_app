@@ -17,7 +17,7 @@ const ChatScreen = (props:any) => {
         const { message }= state.chat;
         var object:any = [];
         message.map(function(val,index){  
-           if(message[index].payload.key == "1,"+selectedUser.id){
+           if(message[index].payload.key == "1,"+selectedUser.id||message[index].payload.key == selectedUser.id+",1"){
               object.push(message[index].payload.array);
            }
        });  
