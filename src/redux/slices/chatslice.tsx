@@ -4,10 +4,13 @@ const initialState = {
   test: false,
   loading: 'idle',
   fetchData: {},
-  messageInsertStatus:false,
-  message:[],
-  selectedUserName:{},
+  messageInsertStatus: false,
+  message: [],
+  selectedUserName: {},
+  cureentUser: null,
+  allUsers: []
 }
+
 
 const chatSlice = createSlice({
   name: 'chat',
@@ -19,19 +22,19 @@ const chatSlice = createSlice({
     fetchLoading(state, action) {
       if (state.loading === 'idle') state.loading = 'pending'
     },
-   fetchComplete(state, action) {
+    fetchComplete(state, action) {
       if (state.loading === 'pending') {
         state.loading = 'idle'
         state.fetchData = action.payload
       }
     },
-  addMessage:(state:any,params:any) =>{
-    state.message.push(params)
-  },
-  selectedName:(state,action)=>{
-    state.selectedUserName = action.payload;
-   },
-   purgeChatSlice: state => initialState,
+    addMessage: (state: any, params: any) => {
+      state.message.push(params)
+    },
+    selectedName: (state, action) => {
+      state.selectedUserName = action.payload;
+    },
+    purgeChatSlice: state => initialState,
   },
 })
 
