@@ -10,28 +10,30 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const ChatScreen = (props:any) => {
     const dispatch = useDispatch();
     const [message, setMessage] = useState([])
+    const selectedUser = props.route.params.selectedUser;  
 
     useEffect(()=>{
         const state = Store.getState(); 
         const { message }= state.chat;
-        setMessage(message)
+        var object:any = [];
+        message.map(function(val,index){  
+           if(message[index].payload.key == "1,"+selectedUser.id){
+              object.push(message[index].payload.array);
+           }
+       });  
+       setMessage(object);
     },[])
 
     const handleSend = useCallback((messages = []) => {
-       dispatch(addMessage(messages));
+      var messageObject = {"key":"1,"+selectedUser.id,"array":messages[0]};  /// later we will add login 
+       dispatch(addMessage(messageObject));
        setMessage(previousMessages => GiftedChat.append(previousMessages, messages))
-    }, [])
-
-
+    }, [message])
 
     const handleBackButtonClick = () => {
       props.navigation.goBack(null);
     }
 
-  
-  
-  
-    const selectedUser = props.route.params.selectedUser;  
     return (
         <View style={{flex:1}}>
           <View style={styles.header}>
@@ -51,7 +53,7 @@ const ChatScreen = (props:any) => {
           keyboardShouldPersistTaps='never'
           inverted={true}
           onSend={newMessage => handleSend(newMessage)}
-          user={{ _id: selectedUser.id ,name:selectedUser.name}}
+          user={{ _id:selectedUser.id,name:selectedUser.name}}
         />
         </View>
 
