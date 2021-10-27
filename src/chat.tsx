@@ -11,13 +11,17 @@ const ChatScreen = (props: any) => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState([])
   const selectedUser = props.route.params.selectedUser;
+  const chat = useSelector((state: any) => state.chat)
+
+  console.log("chat >>>>>>>>>>>>>>>>>>>"+JSON.stringify(chat));
+
 
   useEffect(() => {
     const state = Store.getState();
-    const { message, currentUser } = state.chat;
+    const { message } = state.chat;
     var object: any = [];
     message.map(function (val, index) {
-      if (message[index].payload.key == "1," + selectedUser.id || message[index].payload.key == selectedUser.id + ",1") {
+      if (message[index].payload.key == chat.currentUser.id+"," +selectedUser.id || message[index].payload.key == selectedUser.id+"," +chat.currentUser.id) {
         object.push(message[index].payload.array);
       }
     });
@@ -25,7 +29,7 @@ const ChatScreen = (props: any) => {
   }, [])
 
   const handleSend = useCallback((messages = []) => {
-    var messageObject = { "key": "1," + selectedUser.id, "array": messages[0] };  /// later we will add login 
+    var messageObject = { "key": chat.currentUser.id+"," +selectedUser.id, "array": messages[0] };  /// later we will add login 
     dispatch(addMessage(messageObject));
     setMessage(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [message])
@@ -41,9 +45,11 @@ const ChatScreen = (props: any) => {
           <TouchableOpacity onPress={handleBackButtonClick}>
             <Icon name="arrow-back" size={16} color="#000" />
           </TouchableOpacity>
-          <View style={styles.circleView}>
-            <Icon name="zoom-out-map" size={30} color="#000" />
-          </View>
+          <Image
+          style={styles.circleView}
+          source={{
+            uri: 'https://source.unsplash.com/random',
+          }}/>
           <Text style={styles.textalign}>{selectedUser.name}</Text>
         </View>
       </View>
@@ -67,17 +73,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   circleView: {
+    width: 40,
+    height: 40,
+    borderRadius: 40 / 2,
+    overflow: "hidden",
     borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.2)',
+    borderColor: "red",
     alignItems: 'center',
     alignContent: 'center',
     alignSelf: 'center',
     justifyContent: 'center',
-    width: 40,
-    height: 40,
-    backgroundColor: '#fff',
-    borderRadius: 50,
-    marginLeft: 10
   },
   header: {
     backgroundColor: '#f8f8f8',
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
   },
   textalign: {
     fontSize: 15,
-    marginLeft: 10
+    marginLeft: 5
   }
 });
 
