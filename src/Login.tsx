@@ -19,32 +19,17 @@ import {
 import UserListCardDetails from './component/molecules/userListCardDetails/userListCardDetails';
 import Colour from './utilis/color';
 import { Divider, Text } from 'react-native-elements';
-
-var userListDetails = [
-  {
-    name: "Murali",
-    message: 'Hi Murali',
-    count: 1,
-    id: 0
-  },
-  {
-    name: "Mukesh",
-    message: 'Hi Mukesh',
-    count: 3,
-    id: 1
-  },
-  {
-    name: "Chris",
-    message: 'Hi Chirs',
-    count: 3,
-    id: 2
-  }
-]
+import { useDispatch, useSelector } from "react-redux";
+import { loggedInUser } from './redux/slices/chatslice';
 
 
-const UserRow = (item: any, props: any) => {
+
+const UserRow = (item: any, props: any, OnLogin: any) => {
+
+
+
   return (
-    <Pressable onPress={() => props.navigation.replace("HomeScreen", { selectedUser: item })}>
+    <Pressable onPress={() => OnLogin(item)}>
       <View style={{ padding: 10, flexDirection: 'column' }}>
         <Image
           style={{
@@ -67,14 +52,21 @@ const UserRow = (item: any, props: any) => {
 }
 
 const LoginScreen = (props: any) => {
+
+  const dispatch = useDispatch();
+  const chat = useSelector((state: any) => state.chat)
+  const loginUser = (user: any) => {
+    dispatch(loggedInUser(user))
+    props.navigation.replace("HomeScreen")
+  }
   return (
     <SafeAreaView style={{ backgroundColor: Colour.WHITE, flex: 1 }} >
       <FlatList
         style={{ alignSelf: 'center' }}
         contentContainerStyle={{ alignSelf: 'center' }}
         horizontal={true}
-        data={userListDetails}///current  2 user
-        renderItem={({ item }) => UserRow(item, props)}
+        data={chat.allUsers}///current  2 user
+        renderItem={({ item }) => UserRow(item, props, loginUser)}
         keyExtractor={(item: any) => item.id}
       />
     </SafeAreaView >

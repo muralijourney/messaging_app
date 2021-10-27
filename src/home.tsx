@@ -8,7 +8,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   FlatList,
@@ -19,30 +19,10 @@ import {
 import UserListCardDetails from './component/molecules/userListCardDetails/userListCardDetails';
 import Colour from './utilis/color';
 import { Divider } from 'react-native-elements';
-
-var userListDetails = [
-  {
-    name: "MuraliTharan",
-    message: 'Hi Murali',
-    count: 1,
-    id: 0
-  },
-  {
-    name: "Mukesh",
-    message: 'Hi Mukesh',
-    count: 3,
-    id: 1
-  },
-  {
-    name: "Chris",
-    message: 'Hi Chirs',
-    count: 3,
-    id: 2
-  }
-]
+import { useDispatch, useSelector } from "react-redux";
 
 
-const cardRow = (item: any, props: any) => {
+const cardRow = (item: any, props: any,) => {
   return (
     <Pressable onPress={() => props.navigation.navigate("ChatScreen", { selectedUser: item })}>
       <UserListCardDetails name={item.name} count={item.count} message={item.message} />
@@ -52,10 +32,13 @@ const cardRow = (item: any, props: any) => {
 }
 
 const HomeScreen = (props: any) => {
+  const chat = useSelector((state: any) => state.chat)
+  props.navigation.setOptions({ title: chat.currentUser.name });
+
   return (
     <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>
       <FlatList
-        data={userListDetails}///current  2 user
+        data={chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id)}///current  2 user
         renderItem={({ item }) => cardRow(item, props)}
         keyExtractor={(item: any) => item.id}
       />

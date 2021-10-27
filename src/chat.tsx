@@ -14,10 +14,10 @@ const ChatScreen = (props: any) => {
 
   useEffect(() => {
     const state = Store.getState();
-    const { message } = state.chat;
+    const { message, currentUser } = state.chat;
     var object: any = [];
     message.map(function (val, index) {
-      if (message[index].payload.key == "1,"+selectedUser.id || message[index].payload.key == selectedUser.id+",1") {
+      if (message[index].payload.key == "1," + selectedUser.id || message[index].payload.key == selectedUser.id + ",1") {
         object.push(message[index].payload.array);
       }
     });
