@@ -60,7 +60,7 @@ const ChatScreen = (props: any) => {
         inverted={true}
         renderUsernameOnMessage={true}
         onSend={newMessage => handleSend(newMessage)}
-        user={{ _id: selectedUser.id, name: selectedUser.name }}
+        user={{ _id: chat.currentUser.id, name: chat.currentUser.name}}
       />
     </View>
 
