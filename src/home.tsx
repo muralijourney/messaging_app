@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 const cardRow = (item: any, props: any,) => {
   return (
     <Pressable onPress={() => props.navigation.navigate("ChatScreen", { selectedUser: item })}>
-      <UserListCardDetails name={item.name} count={item.count} message={item.message} />
+      <UserListCardDetails name={item.name} count={item.count} message={item.message} time={item.time} />
       <Divider />
     </Pressable >
   );
@@ -33,7 +33,9 @@ const cardRow = (item: any, props: any,) => {
 
 const HomeScreen = (props: any) => {
   const chat = useSelector((state: any) => state.chat)
-  props.navigation.setOptions({ title: chat.currentUser.name });
+  useEffect(() => {
+    props.navigation.setOptions({ title: chat.currentUser.name });
+  }, []);
 
   return (
     <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>

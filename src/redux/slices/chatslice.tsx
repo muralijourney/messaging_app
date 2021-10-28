@@ -11,20 +11,23 @@ const initialState = {
   allUsers: [
     {
       name: "MuraliTharan",
-      message: 'Hi Murali',
+      message: '',
       count: 1,
+      time:'00:00',
       id: 1
     },
     {
       name: "Mukesh",
-      message: 'Hi Mukesh',
+      message: '',
       count: 3,
+      time:'00:00',
       id: 2
     },
     {
       name: "Chris",
-      message: 'Hi Chirs',
+      message: '',
       count: 3,
+      time:'00:00',
       id: 3
     }
   ]
@@ -56,6 +59,14 @@ const chatSlice = createSlice({
     selectedName: (state, action) => {
       state.selectedUserName = action.payload;
     },
+    setLastMessage:(state:any,params:any)=>{
+      state.allUsers.map(function (val:any, index:any) {
+         if(params.payload.id == val.id){
+          state.allUsers[index].message = params.payload.message.text
+          state.allUsers[index].time = new Date().getHours() + ':' + new Date().getMinutes()
+         }
+      });
+    },
     purgeChatSlice: state => initialState,
   },
 })
@@ -67,6 +78,7 @@ export const {
   fetchComplete,
   fetchLoading,
   addMessage,
+  setLastMessage,
   selectedName,
   purgeChatSlice,
   loggedInUser

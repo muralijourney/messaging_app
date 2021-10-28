@@ -9,6 +9,7 @@ import userListStyle from './userListCardDetailsStyle';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const UserListCardDetails = (props: any) => {
+  console.log("props time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>."+ props.time)
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={[userListStyle.circleView]}>
@@ -34,7 +35,7 @@ const UserListCardDetails = (props: any) => {
         </View>
         <View style={userListStyle.textflexDirection}>
           <Text style={userListStyle.messageTextStyle}>{props.message}</Text>
-          <Text style={[userListStyle.messageTextStyle, { textAlign: 'right' }]}>{new Date().getHours() + ':' + new Date().getMinutes()}</Text>
+          <Text style={[userListStyle.messageTextStyle, { textAlign: 'right' }]}>{props.time}</Text>
         </View>
       </View>
     </View>

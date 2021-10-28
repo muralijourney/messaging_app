@@ -3,7 +3,7 @@ import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-nat
 import { GiftedChat } from '../lib/react-native-gifted-chat';
 import { Store } from '../src/redux/store'
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage, selectedName } from './redux/slices/chatslice'
+import { addMessage, selectedName,setLastMessage } from './redux/slices/chatslice'
 import { Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -29,10 +29,12 @@ const ChatScreen = (props: any) => {
   }, [])
 
   const handleSend = useCallback((messages = []) => {
-    var messageObject = { "key": chat.currentUser.id+"," +selectedUser.id, "array": messages[0] };  /// later we will add login 
+    var messageObject = {"key": chat.currentUser.id+"," +selectedUser.id, "array": messages[0]};  /// later we will add login 
+    var lastMessageObject = {"id":selectedUser.id, "message": messages[0]};/// store user last message 
     dispatch(addMessage(messageObject));
+    dispatch(setLastMessage(lastMessageObject));
     setMessage(previousMessages => GiftedChat.append(previousMessages, messages))
-  }, [message])
+  },[message])
 
   const handleBackButtonClick = () => {
     props.navigation.goBack(null);
