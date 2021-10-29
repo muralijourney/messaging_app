@@ -65,7 +65,7 @@ const HomeScreen = (props: any) => {
       <FlatList
         style={{ height: '100%' }}
         ListEmptyComponent={() =>
-          <View style={{ marginTop: 300, }}>
+          <View style={{ marginTop: 300 }}>
             <Text style={{ alignSelf: 'center', fontSize: 30 }}>No Records</Text>
           </View>}
         data={chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id && usersId.includes(user.id))}///current  2 user
