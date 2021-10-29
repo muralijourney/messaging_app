@@ -12,28 +12,12 @@ import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   FlatList,
-  View,
-  Pressable,
-  TouchableOpacity
+  Pressable
 } from 'react-native';
 import UserCard from './component/molecules/userListCardDetails/userCard';
 import Colour from './utilis/color';
 import { Divider } from 'react-native-elements';
-import { useDispatch, useSelector } from "react-redux";
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
-
-
-const shuffleArray = (array: any) => {
-  for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-}
-
-
+import { useSelector } from "react-redux";
 
 const cardRow = (item: any, props: any,) => {
   return (
