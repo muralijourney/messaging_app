@@ -32,7 +32,7 @@ const ChatScreen = (props: any) => {
     var messageObject = { "key": chat.currentUser.id + "," + selectedUser.id, "array": messages[0] };  /// later we will add login 
     var lastMessageObject = { "id": selectedUser.id, "message": messages[0] };/// store user last message 
     dispatch(addMessage(messageObject));
-    dispatch(setLastMessage(lastMessageObject));
+    // dispatch(setLastMessage(lastMessageObject));
     setMessage(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [message])
 

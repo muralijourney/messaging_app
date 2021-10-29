@@ -10,10 +10,11 @@ const initialState = {
   message: [],
   selectedUserName: {},
   currentUser: null,
+
   allUsers: Array(users.length).fill(null).map((_, index) => ({
     name: users[index],
     image: "https://picsum.photos/200",
-    message: '',
+    lastMessage: '',
     count: 1,
     time: '00:00',
     id: index + 1

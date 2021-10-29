@@ -32,18 +32,38 @@ const cardRow = (item: any, props: any,) => {
   );
 }
 
+
+const getChatUsers = (message: any, userId: any) => {
+  let userIds: any = []
+  let lastMessage: any = []
+  message.map((msg: any) => {
+    // console.log( msg.array)
+    if (msg.payload.key.includes(userId)) {
+      userIds.push(Number(msg.payload.key.split(",")[1]))
+      userIds.push(Number(msg.payload.key.split(",")[0]))
+    }
+  })
+  //console.log(lastMessage)
+  return userIds
+}
+
+
 const HomeScreen = (props: any) => {
   const chat = useSelector((state: any) => state.chat)
+  const usersId = getChatUsers(chat.message, chat.currentUser.id)
+
   useEffect(() => {
-    //props.navigation.setOptions({ title: chat.currentUser.name });
+    console.log(usersId)
+    chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id && usersId.includes(user.id))
     props.navigation.setOptions({ title: "Messages" });
+
   }, []);
 
   return (
     <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>
       <FlatList
         style={{ height: '100%' }}
-        data={chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id)}///current  2 user
+        data={chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id && usersId.includes(user.id))}///current  2 user
         renderItem={({ item }) => cardRow(item, props)}
         keyExtractor={(item: any) => item.id}
       />
