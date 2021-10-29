@@ -23,6 +23,18 @@ import { useDispatch, useSelector } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
+
+const shuffleArray = (array: any) => {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
+
+
+
 const cardRow = (item: any, props: any,) => {
   return (
     <Pressable onPress={() => props.navigation.replace("ChatScreen", { selectedUser: item })}>
@@ -37,12 +49,12 @@ const SearchScreen = (props: any) => {
   useEffect(() => {
     props.navigation.setOptions({ title: "Search User" });
   }, []);
-
+  const data = chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id)
   return (
     <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>
       <FlatList
         style={{ height: '100%' }}
-        data={chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id)}///current  2 user
+        data={data}///current  2 user
         renderItem={({ item }) => cardRow(item, props)}
         keyExtractor={(item: any) => item.id}
       />
