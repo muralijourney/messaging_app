@@ -14,12 +14,13 @@ import {
   FlatList,
   View,
   Pressable,
-  StyleSheet
+  TouchableOpacity
 } from 'react-native';
 import UserListCardDetails from './component/molecules/userListCardDetails/userListCardDetails';
 import Colour from './utilis/color';
 import { Divider } from 'react-native-elements';
 import { useDispatch, useSelector } from "react-redux";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 const cardRow = (item: any, props: any,) => {
@@ -45,6 +46,22 @@ const HomeScreen = (props: any) => {
         renderItem={({ item }) => cardRow(item, props)}
         keyExtractor={(item: any) => item.id}
       />
+      <TouchableOpacity
+        onPress={() => console.log("Navigate to search user")}
+        activeOpacity={0.5}
+        style={{
+          width: 60,
+          height: 60,
+          borderRadius: 30,
+          backgroundColor: '#ee6e73',
+          position: 'absolute',
+          justifyContent: 'center',
+          alignItems: 'center',
+          bottom: 30,
+          right: 20,
+        }} >
+        <Icon name="message" size={30} color="#fff" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
