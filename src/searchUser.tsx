@@ -38,7 +38,7 @@ const SearchScreen = (props: any) => {
     <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>
       <FlatList
         style={{ height: '100%' }}
-        data={data}///current  2 user
+        data={data}
         renderItem={({ item }) => cardRow(item, props)}
         keyExtractor={(item: any) => item.id}
       />
