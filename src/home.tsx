@@ -13,6 +13,7 @@ import {
   SafeAreaView,
   FlatList,
   View,
+  Text,
   Pressable,
   TouchableOpacity
 } from 'react-native';
@@ -63,6 +64,10 @@ const HomeScreen = (props: any) => {
     <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>
       <FlatList
         style={{ height: '100%' }}
+        ListEmptyComponent={() =>
+          <View style={{ marginTop: 300, }}>
+            <Text style={{ alignSelf: 'center', fontSize: 30 }}>No Records</Text>
+          </View>}
         data={chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id && usersId.includes(user.id))}///current  2 user
         renderItem={({ item }) => cardRow(item, props)}
         keyExtractor={(item: any) => item.id}

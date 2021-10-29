@@ -33,9 +33,6 @@ const ChatScreen = (props: any) => {
   }, [])
 
 
-
-
-
   const handleSend = useCallback((messages = []) => {
     var messageObject = { "key": chat.currentUser.id + "," + selectedUser.id, "text": messages[0] };  /// later we will add login 
     var lastMessageObject = { "id": selectedUser.id, "message": messages[0] };/// store user last message 
