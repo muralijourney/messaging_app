@@ -9,7 +9,7 @@ import userListStyle from './userListCardDetailsStyle';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const UserListCardDetails = (props: any) => {
-  console.log("props time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>."+ props.time)
+  console.log("props time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>." + props.time)
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={[userListStyle.circleView]}>
@@ -31,7 +31,7 @@ const UserListCardDetails = (props: any) => {
       <View style={{ flex: 1, flexDirection: 'column' }} >
         <View style={userListStyle.textflexDirection}>
           <Text style={userListStyle.textStyle}>{props.name}</Text>
-          <Badge count={props.count} style={[userListStyle.badgeStyle, { alignSelf: 'flex-end' }]} />
+          {/* <Badge count={props.count} style={[userListStyle.badgeStyle, { alignSelf: 'flex-end' }]} /> */}
         </View>
         <View style={userListStyle.textflexDirection}>
           <Text style={userListStyle.messageTextStyle}>{props.message}</Text>

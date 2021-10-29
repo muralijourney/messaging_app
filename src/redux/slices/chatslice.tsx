@@ -13,22 +13,57 @@ const initialState = {
       name: "MuraliTharan",
       message: '',
       count: 1,
-      time:'00:00',
+      time: '00:00',
       id: 1
     },
     {
       name: "Mukesh",
       message: '',
       count: 3,
-      time:'00:00',
+      time: '00:00',
       id: 2
     },
     {
       name: "Chris",
       message: '',
       count: 3,
-      time:'00:00',
+      time: '00:00',
       id: 3
+    },
+    {
+      name: "Kevin",
+      message: '',
+      count: 4,
+      time: '00:00',
+      id: 4
+    },
+    {
+      name: "Sudhanshu",
+      message: '',
+      count: 5,
+      time: '00:00',
+      id: 5
+    },
+    {
+      name: "Kuladip",
+      message: '',
+      count: 6,
+      time: '00:00',
+      id: 6
+    },
+    {
+      name: "Ben",
+      message: '',
+      count: 7,
+      time: '00:00',
+      id: 7
+    },
+    {
+      name: "Brian",
+      message: '',
+      count: 8,
+      time: '00:00',
+      id: 8
     }
   ]
 }
@@ -59,12 +94,12 @@ const chatSlice = createSlice({
     selectedName: (state, action) => {
       state.selectedUserName = action.payload;
     },
-    setLastMessage:(state:any,params:any)=>{
-      state.allUsers.map(function (val:any, index:any) {
-         if(params.payload.id == val.id){
+    setLastMessage: (state: any, params: any) => {
+      state.allUsers.map(function (val: any, index: any) {
+        if (params.payload.id == val.id) {
           state.allUsers[index].message = params.payload.message.text
           state.allUsers[index].time = new Date().getHours() + ':' + new Date().getMinutes()
-         }
+        }
       });
     },
     purgeChatSlice: state => initialState,
