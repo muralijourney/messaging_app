@@ -40,6 +40,7 @@ const HomeScreen = (props: any) => {
   return (
     <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>
       <FlatList
+        style={{ height: '100%' }}
         data={chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id)}///current  2 user
         renderItem={({ item }) => cardRow(item, props)}
         keyExtractor={(item: any) => item.id}
