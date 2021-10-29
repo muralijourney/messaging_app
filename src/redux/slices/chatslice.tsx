@@ -40,16 +40,21 @@ const chatSlice = createSlice({
         state.fetchData = action.payload
       }
     },
-    addMessage: (state: any, params: any) => {
-      state.message.push(params)
+    addMessage: (state: any, action: any) => {
+      //key isExit
+      //1,2 2,1 //message push new object
+      //key doent exist
+      //state.message.push({key:1,2 :message:[action.payload])
+      //message:[{key:1,2,messages:[mesge]}]
+      state.message.push(action.payload)
     },
     selectedName: (state, action) => {
       state.selectedUserName = action.payload;
     },
-    setLastMessage: (state: any, params: any) => {
+    setLastMessage: (state: any, action: any) => {
       state.allUsers.map(function (val: any, index: any) {
-        if (params.payload.id == val.id) {
-          state.allUsers[index].message = params.payload.message.text
+        if (action.payload.id == val.id) {
+          state.allUsers[index].message = action.payload.message.text
           state.allUsers[index].time = new Date().getHours() + ':' + new Date().getMinutes()
         }
       });

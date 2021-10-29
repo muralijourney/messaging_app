@@ -35,12 +35,12 @@ const cardRow = (item: any, props: any,) => {
 
 const getChatUsers = (message: any, userId: any) => {
   let userIds: any = []
-  let lastMessage: any = []
   message.map((msg: any) => {
     // console.log( msg.array)
-    if (msg.payload.key.includes(userId)) {
-      userIds.push(Number(msg.payload.key.split(",")[1]))
-      userIds.push(Number(msg.payload.key.split(",")[0]))
+    if (msg.key.includes(userId)) {
+      userIds.push(Number(msg.key.split(",")[1]))
+      userIds.push(Number(msg.key.split(",")[0]))
+
     }
   })
   //console.log(lastMessage)

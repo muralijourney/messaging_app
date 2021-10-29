@@ -7,6 +7,10 @@ import { addMessage, selectedName, setLastMessage } from './redux/slices/chatsli
 import { Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+
+
+
+
 const ChatScreen = (props: any) => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState([])
@@ -21,18 +25,22 @@ const ChatScreen = (props: any) => {
     const { message } = state.chat;
     var object: any = [];
     message.map(function (val, index) {
-      if (message[index].payload.key == chat.currentUser.id + "," + selectedUser.id || message[index].payload.key == selectedUser.id + "," + chat.currentUser.id) {
-        object.push(message[index].payload.array);
+      if (message[index].key == chat.currentUser.id + "," + selectedUser.id || message[index].key == selectedUser.id + "," + chat.currentUser.id) {
+        object.push(message[index].text);
       }
     });
     setMessage(object.reverse());
   }, [])
 
+
+
+
+
   const handleSend = useCallback((messages = []) => {
-    var messageObject = { "key": chat.currentUser.id + "," + selectedUser.id, "array": messages[0] };  /// later we will add login 
+    var messageObject = { "key": chat.currentUser.id + "," + selectedUser.id, "text": messages[0] };  /// later we will add login 
     var lastMessageObject = { "id": selectedUser.id, "message": messages[0] };/// store user last message 
     dispatch(addMessage(messageObject));
-    // dispatch(setLastMessage(lastMessageObject));
+    dispatch(setLastMessage(lastMessageObject));
     setMessage(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [message])
 
