@@ -42,7 +42,7 @@ const UserRow = (item: any, props: any, OnLogin: any) => {
 
           }}
           source={{
-            uri: 'https://source.unsplash.com/random',
+            uri: item.image,
           }}
         />
         <Text style={{ fontSize: 15, alignSelf: 'center', padding: 10 }}>{item.name}</Text>

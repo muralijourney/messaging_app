@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
+const users = ["Murali", "Mukesh", 'Chris', 'Kevin', 'Sudhanshu', 'Kuladip', 'Ben', 'Brian']
 const initialState = {
   test: false,
   loading: 'idle',
@@ -8,64 +10,15 @@ const initialState = {
   message: [],
   selectedUserName: {},
   currentUser: null,
-  allUsers: [
-    {
-      name: "MuraliTharan",
-      message: '',
-      count: 1,
-      time: '00:00',
-      id: 1
-    },
-    {
-      name: "Mukesh",
-      message: '',
-      count: 3,
-      time: '00:00',
-      id: 2
-    },
-    {
-      name: "Chris",
-      message: '',
-      count: 3,
-      time: '00:00',
-      id: 3
-    },
-    {
-      name: "Kevin",
-      message: '',
-      count: 4,
-      time: '00:00',
-      id: 4
-    },
-    {
-      name: "Sudhanshu",
-      message: '',
-      count: 5,
-      time: '00:00',
-      id: 5
-    },
-    {
-      name: "Kuladip",
-      message: '',
-      count: 6,
-      time: '00:00',
-      id: 6
-    },
-    {
-      name: "Ben",
-      message: '',
-      count: 7,
-      time: '00:00',
-      id: 7
-    },
-    {
-      name: "Brian",
-      message: '',
-      count: 8,
-      time: '00:00',
-      id: 8
-    }
-  ]
+  allUsers: Array(users.length).fill(null).map((_, index) => ({
+    name: users[index],
+    image: "https://picsum.photos/200",
+    message: '',
+    count: 1,
+    time: '00:00',
+    id: index + 1
+  }))
+
 }
 
 

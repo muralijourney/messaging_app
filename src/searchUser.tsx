@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 const cardRow = (item: any, props: any,) => {
   return (
     <Pressable onPress={() => props.navigation.replace("ChatScreen", { selectedUser: item })}>
-      <UserCard name={item.name} count={item.count} message={item.message} time={item.time} />
+      <UserCard name={item.name} count={item.count} message={item.message} time={item.time} image={item.image} />
       <Divider />
     </Pressable >
   );

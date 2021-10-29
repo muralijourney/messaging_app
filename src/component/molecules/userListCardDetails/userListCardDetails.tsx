@@ -24,7 +24,7 @@ const UserListCardDetails = (props: any) => {
 
           }}
           source={{
-            uri: 'https://source.unsplash.com/random',
+            uri: props.image,
           }}
         />
       </View>

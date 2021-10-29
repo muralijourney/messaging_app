@@ -50,7 +50,7 @@ const ChatScreen = (props: any) => {
           <Image
             style={styles.circleView}
             source={{
-              uri: 'https://source.unsplash.com/random',
+              uri: selectedUser.image,
             }} />
           <Text style={styles.textalign}>{selectedUser.name}</Text>
         </View>

@@ -6,10 +6,9 @@ import {
 } from 'react-native';
 import Badge from '../../atoms/Badge/badge';
 import userListStyle from './userListCardDetailsStyle';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const UserCard = (props: any) => {
-  console.log("props time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>." + props.time)
+  // console.log("props time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>." + props.time)
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={[userListStyle.circleView]}>
@@ -24,7 +23,7 @@ const UserCard = (props: any) => {
 
           }}
           source={{
-            uri: 'https://source.unsplash.com/random',
+            uri: props.image,
           }}
         />
 

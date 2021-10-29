@@ -26,7 +26,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const cardRow = (item: any, props: any,) => {
   return (
     <Pressable onPress={() => props.navigation.navigate("ChatScreen", { selectedUser: item })}>
-      <UserListCardDetails name={item.name} count={item.count} message={item.message} time={item.time} />
+      <UserListCardDetails name={item.name} count={item.count} message={item.message} time={item.time} image={item.image} />
       <Divider />
     </Pressable >
   );
