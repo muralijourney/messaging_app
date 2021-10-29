@@ -63,8 +63,8 @@ const LoginScreen = (props: any) => {
     <SafeAreaView style={{ backgroundColor: Colour.WHITE, flex: 1 }} >
       <FlatList
         style={{ alignSelf: 'center' }}
+        numColumns={3}
         contentContainerStyle={{ alignSelf: 'center' }}
-        horizontal={true}
         data={chat.allUsers}///current  2 user
         renderItem={({ item }) => UserRow(item, props, loginUser)}
         keyExtractor={(item: any) => item.id}
