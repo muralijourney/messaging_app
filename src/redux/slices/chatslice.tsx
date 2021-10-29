@@ -18,9 +18,7 @@ const initialState = {
     time: '00:00',
     id: index + 1
   }))
-
 }
-
 
 const chatSlice = createSlice({
   name: 'chat',
