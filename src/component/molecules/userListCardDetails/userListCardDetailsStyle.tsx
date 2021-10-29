@@ -6,10 +6,11 @@ const userListStyle = StyleSheet.create({
     backgroundColor: Colour.WHITE,
   },
   textStyle: {
-    fontSize: 15,
+    fontSize: 18,
     color: Colour.BLACK,
     paddingTop: 10,
     paddingBottom: 10,
+
     flex: 1,
   },
 

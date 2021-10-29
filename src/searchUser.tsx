@@ -16,7 +16,7 @@ import {
   Pressable,
   TouchableOpacity
 } from 'react-native';
-import UserListCardDetails from './component/molecules/userListCardDetails/userListCardDetails';
+import UserCard from './component/molecules/userListCardDetails/userCard';
 import Colour from './utilis/color';
 import { Divider } from 'react-native-elements';
 import { useDispatch, useSelector } from "react-redux";
@@ -25,18 +25,17 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const cardRow = (item: any, props: any,) => {
   return (
-    <Pressable onPress={() => props.navigation.navigate("ChatScreen", { selectedUser: item })}>
-      <UserListCardDetails name={item.name} count={item.count} message={item.message} time={item.time} />
+    <Pressable onPress={() => props.navigation.replace("ChatScreen", { selectedUser: item })}>
+      <UserCard name={item.name} count={item.count} message={item.message} time={item.time} />
       <Divider />
     </Pressable >
   );
 }
 
-const HomeScreen = (props: any) => {
+const SearchScreen = (props: any) => {
   const chat = useSelector((state: any) => state.chat)
   useEffect(() => {
-    //props.navigation.setOptions({ title: chat.currentUser.name });
-    props.navigation.setOptions({ title: "Messages" });
+    props.navigation.setOptions({ title: "Search User" });
   }, []);
 
   return (
@@ -47,26 +46,11 @@ const HomeScreen = (props: any) => {
         renderItem={({ item }) => cardRow(item, props)}
         keyExtractor={(item: any) => item.id}
       />
-      <TouchableOpacity
-        onPress={() => props.navigation.navigate("SearchScreen")}
-        activeOpacity={0.5}
-        style={{
-          width: 60,
-          height: 60,
-          borderRadius: 30,
-          backgroundColor: '#ee6e73',
-          position: 'absolute',
-          justifyContent: 'center',
-          alignItems: 'center',
-          bottom: 30,
-          right: 20,
-        }} >
-        <Icon name="message" size={30} color="#fff" />
-      </TouchableOpacity>
+
     </SafeAreaView>
   );
 };
 
 
 
-export default HomeScreen;
+export default SearchScreen;
