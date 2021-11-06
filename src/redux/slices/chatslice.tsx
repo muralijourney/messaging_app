@@ -59,17 +59,11 @@ const chatSlice = createSlice({
         }
       }
 
+      console.log('>>>>>>>>>>><<<<<<<<<,'+JSON.stringify(state.message));
+
     },
     selectedName: (state, action) => {
       state.selectedUserName = action.payload;
-    },
-    setLastMessage: (state: any, action: any) => {
-      state.allUsers.map(function (val: any, index: any) {
-        if (action.payload.id == val.id) {
-          state.allUsers[index].message = action.payload.message.text
-          state.allUsers[index].time = new Date().getHours() + ':' + new Date().getMinutes()
-        }
-      });
     },
     purgeChatSlice: state => initialState,
   },
@@ -82,7 +76,6 @@ export const {
   fetchComplete,
   fetchLoading,
   addMessage,
-  setLastMessage,
   selectedName,
   purgeChatSlice,
   loggedInUser
