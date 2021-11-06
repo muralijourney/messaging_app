@@ -9,7 +9,6 @@ import userListStyle from './userListCardDetailsStyle';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const UserListCardDetails = (props: any) => {
-  console.log("props time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>." + props.time)
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={[userListStyle.circleView]}>

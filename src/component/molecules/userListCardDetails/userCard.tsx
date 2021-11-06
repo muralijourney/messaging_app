@@ -8,7 +8,6 @@ import Badge from '../../atoms/Badge/badge';
 import userListStyle from './userListCardDetailsStyle';
 
 const UserCard = (props: any) => {
-  // console.log("props time >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>." + props.time)
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <View style={[userListStyle.circleView]}>

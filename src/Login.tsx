@@ -17,13 +17,13 @@ import {
   Image,
 } from 'react-native';
 import Colour from './utilis/color';
-import { Divider, Text } from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import { useDispatch, useSelector } from "react-redux";
 import { loggedInUser } from './redux/slices/chatslice';
+import { UserListInterface } from './utilis/type'
 
 
-
-const UserRow = (item: any, props: any, OnLogin: any) => {
+const UserRow = (item: UserListInterface, props: any, OnLogin: any) => {
   return (
     <Pressable onPress={() => OnLogin(item)}>
       <View style={{ padding: 10, flexDirection: 'column' }}>

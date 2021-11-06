@@ -8,36 +8,36 @@ import { Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-
-
-
 const ChatScreen = (props: any) => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState([])
   const selectedUser = props.route.params.selectedUser;
   const chat = useSelector((state: any) => state.chat)
 
-  console.log("chat >>>>>>>>>>>>>>>>>>>" + JSON.stringify(chat));
-
-
+  interface ConversationObject {
+    key?: string;
+    text?: {};
+  }
+  
   useEffect(() => {
     const state = Store.getState();
     const { message } = state.chat;
     var object: any = [];
-    message.map(function (val, index) {
-      if (message[index].key == chat.currentUser.id + "," + selectedUser.id || message[index].key == selectedUser.id + "," + chat.currentUser.id) {
-        object.push(message[index].text);
-      }
+    message.map(function (val:any, index:number) {
+      if (val.key == chat.currentUser.id + "-" + selectedUser.id || val.key == selectedUser.id + "-" + chat.currentUser.id) {
+        val.messages.map(function (messageObject:any, index:any) {
+          object.push(messageObject);
+        });
+     }
     });
-    setMessage(object.reverse());
-  }, [])
+    // order by time 
+    const sortedActivities = object.sort((a:any, b:any) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf())
+    setMessage(sortedActivities);  
+  },[])
 
-
-  const handleSend = useCallback((messages = []) => {
-    var messageObject = { "key": chat.currentUser.id + "," + selectedUser.id, "text": messages[0] };  /// later we will add login 
-    var lastMessageObject = { "id": selectedUser.id, "message": messages[0] };/// store user last message 
+const handleSend = useCallback((messages = []) => {
+    var messageObject : ConversationObject = {"key": chat.currentUser.id+"-"+selectedUser.id,"text": messages[0]};  /// later we will add login 
     dispatch(addMessage(messageObject));
-    dispatch(setLastMessage(lastMessageObject));
     setMessage(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [message])
 

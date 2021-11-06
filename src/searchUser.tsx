@@ -18,11 +18,13 @@ import UserCard from './component/molecules/userListCardDetails/userCard';
 import Colour from './utilis/color';
 import { Divider } from 'react-native-elements';
 import { useSelector } from "react-redux";
+import { UserListInterface } from './utilis/type'
 
-const cardRow = (item: any, props: any,) => {
+
+const cardRow = (item: UserListInterface, props: any,) => {
   return (
     <Pressable onPress={() => props.navigation.replace("ChatScreen", { selectedUser: item })}>
-      <UserCard name={item.name} count={item.count} message={item.message} time={item.time} image={item.image} />
+      <UserCard name={item.name} count={item.count} message={item.lastMessage} time={item.time} image={item.image} />
       <Divider />
     </Pressable >
   );

@@ -20,51 +20,50 @@ import {
 import UserListCardDetails from './component/molecules/userListCardDetails/userListCardDetails';
 import Colour from './utilis/color';
 import { Divider } from 'react-native-elements';
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Store } from '../src/redux/store'
+import { UserListInterface } from './utilis/type'
 
 
-const cardRow = (item: any, props: any,) => {
+const cardRow = (item: UserListInterface, props: any) => {
   return (
     <Pressable onPress={() => props.navigation.navigate("ChatScreen", { selectedUser: item })}>
-      <UserListCardDetails name={item.name} count={item.count} message={item.message} time={item.time} image={item.image} />
+      <UserListCardDetails name={item.name} count={item.count} message={item.lastMessage} time={item.time} image={item.image} />
       <Divider />
     </Pressable >
   );
 }
 
 
-const getChatUsers = (message: any, userId: any) => {
+const getChatUsers = (message: [],userId: string,allUsers:[]) => {
   let userIds: any = []
   message.map((msg: any) => {
-    // console.log( msg.array)
     if (msg.key.includes(userId)) {
-      userIds.push(Number(msg.key.split(",")[1]))
-      userIds.push(Number(msg.key.split(",")[0]))
-
-    }
+      userIds.push(Number(msg.key.split("-")[1]))
+      userIds.push(Number(msg.key.split("-")[0]))
+      }
   })
-  //console.log(lastMessage)
   return userIds
 }
 
 
+
 const HomeScreen = (props: any) => {
   const chat = useSelector((state: any) => state.chat)
-  const usersId = getChatUsers(chat.message, chat.currentUser.id)
+  const usersId = getChatUsers(chat.message, chat.currentUser.id,chat.allUsers)
 
   useEffect(() => {
-    console.log(usersId)
-    chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id && usersId.includes(user.id))
-    props.navigation.setOptions({ title: "Messages" });
-
+   console.log(usersId)
+   chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id && usersId.includes(user.id))
+   props.navigation.setOptions({ title: "Messages" });
   }, []);
 
   return (
     <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>
       <FlatList
         style={{ height: '100%' }}
-        ListEmptyComponent={() =>
+         ListEmptyComponent={() =>
           <View style={{ marginTop: 300 }}>
             <Text style={{ alignSelf: 'center', fontSize: 30 }}>No Records</Text>
           </View>}

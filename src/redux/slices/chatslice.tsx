@@ -10,7 +10,6 @@ const initialState = {
   message: [],
   selectedUserName: {},
   currentUser: null,
-
   allUsers: Array(users.length).fill(null).map((_, index) => ({
     name: users[index],
     image: "https://picsum.photos/200",
@@ -41,12 +40,25 @@ const chatSlice = createSlice({
       }
     },
     addMessage: (state: any, action: any) => {
-      //key isExit
-      //1,2 2,1 //message push new object
-      //key doent exist
-      //state.message.push({key:1,2 :message:[action.payload])
-      //message:[{key:1,2,messages:[mesge]}]
-      state.message.push(action.payload)
+     if(state.message.length == 0){
+       // Empty Array added
+        state.message.push({"key":action.payload.key,"messages":[action.payload.text]})
+      }else{
+        for (var i = 0; i < state.message.length; i++) {
+          if (state.message[i].key.includes(action.payload.key)) {
+            //array update
+            state.message[i].messages.push(action.payload.text)
+           }else{
+            // new chat to creeate new  
+            let exists = state.message.filter((item:any) => item.key == action.payload.key);
+            if(exists.length == 0){
+              state.message.push({"key":action.payload.key,"messages":[action.payload.text]});
+              break;
+            }
+          }
+        }
+      }
+
     },
     selectedName: (state, action) => {
       state.selectedUserName = action.payload;
@@ -74,6 +86,6 @@ export const {
   selectedName,
   purgeChatSlice,
   loggedInUser
-} = actions
+} = actions 
 
 export default reducer
