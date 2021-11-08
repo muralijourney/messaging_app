@@ -22,14 +22,20 @@ import Colour from './utilis/color';
 import { Divider } from 'react-native-elements';
 import {useSelector } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Store } from '../src/redux/store'
 import { UserListInterface } from './utilis/type'
+import moment from 'moment';
 
 
-const cardRow = (item: UserListInterface, props: any) => {
+const cardRow = (item: UserListInterface, props: any,lastMessages:any) => {
+  let obj = lastMessages.find((Obj:any)=>Obj.user == item.id)
+  let lastMessage,time ="";
+  if(obj){
+    lastMessage = obj.lastmessage.text;
+    time=moment(obj.lastmessage.createdAt).format('hh:mm:ss A')
+  }
   return (
     <Pressable onPress={() => props.navigation.navigate("ChatScreen", { selectedUser: item })}>
-      <UserListCardDetails name={item.name} count={item.count} message={item.lastMessage} time={item.time} image={item.image} />
+      <UserListCardDetails name={item.name} count={item.count} message={lastMessage} time={time} image={item.image} />
       <Divider />
     </Pressable >
   );
@@ -44,17 +50,27 @@ const getChatUsers = (message: [],userId: string,allUsers:[]) => {
       userIds.push(Number(msg.key.split("-")[0]))
       }
   })
-  return userIds
+  let user_msg : any =[]
+  userIds.map((user:any)=>{
+    let exists:any = message.filter((item:any) => (item.key.includes(user)&& item.key.includes(userId)));
+    if(exists.length > 0 && user != userId){
+      let msglength = exists[0].messages.length;
+      let msg = exists[0].messages[msglength-1]
+      user_msg.push({"user":user,"lastmessage":msg});
+    }
+  })
+  return {userIds,user_msg}
 }
 
 
 
 const HomeScreen = (props: any) => {
   const chat = useSelector((state: any) => state.chat)
-  const usersId = getChatUsers(chat.message, chat.currentUser.id,chat.allUsers)
+  let data = getChatUsers(chat.message, chat.currentUser.id,chat.allUsers)
+  let usersId = data.userIds;
+  let user_msg = data.user_msg;
 
   useEffect(() => {
-   console.log(usersId)
    chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id && usersId.includes(user.id))
    props.navigation.setOptions({ title: "Messages" });
   }, []);
@@ -68,7 +84,7 @@ const HomeScreen = (props: any) => {
             <Text style={{ alignSelf: 'center', fontSize: 30 }}>No Records</Text>
           </View>}
         data={chat.allUsers.filter((user: any) => user.id !== chat.currentUser.id && usersId.includes(user.id))}///current  2 user
-        renderItem={({ item }) => cardRow(item, props)}
+        renderItem={({ item }) => cardRow(item, props,user_msg)}
         keyExtractor={(item: any) => item.id}
       />
       <TouchableOpacity

@@ -13,7 +13,7 @@ const initialState = {
   allUsers: Array(users.length).fill(null).map((_, index) => ({
     name: users[index],
     image: "https://picsum.photos/200",
-    lastMessage: '',
+    lastMessage: undefined,
     count: 1,
     time: '00:00',
     id: index + 1
@@ -39,6 +39,11 @@ const chatSlice = createSlice({
         state.fetchData = action.payload
       }
     },
+    addLastMessage:(state: any, action: any) => {
+       // All user + update the last Message    
+    
+    
+    },
     addMessage: (state: any, action: any) => {
      if(state.message.length == 0){
        // Empty Array added
@@ -59,7 +64,7 @@ const chatSlice = createSlice({
         }
       }
 
-      console.log('>>>>>>>>>>><<<<<<<<<,'+JSON.stringify(state.message));
+     // console.log('>>>>>>>>>>><<<<<<<<<,'+JSON.stringify(state.message));
 
     },
     selectedName: (state, action) => {
