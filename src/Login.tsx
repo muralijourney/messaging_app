@@ -23,9 +23,9 @@ import { loggedInUser } from './redux/slices/chatslice';
 import { UserListInterface } from './utilis/type'
 
 
-const UserRow = (item: UserListInterface, props: any, OnLogin: any) => {
+const UserRow = (item: UserListInterface, props: any, OnLogin: any, index: number) => {
   return (
-    <Pressable onPress={() => OnLogin(item)}>
+    <Pressable testID={'row' + index} onPress={() => OnLogin(item)}>
       <View style={{ padding: 10, flexDirection: 'column' }}>
         <Image
           style={{
@@ -58,11 +58,12 @@ const LoginScreen = (props: any) => {
   return (
     <SafeAreaView style={{ backgroundColor: Colour.WHITE, flex: 1 }} >
       <FlatList
+        testID={'userList'}
         style={{ alignSelf: 'center' }}
         numColumns={3}
         contentContainerStyle={{ alignSelf: 'center' }}
         data={chat.allUsers}///current  2 user
-        renderItem={({ item }) => UserRow(item, props, loginUser)}
+        renderItem={({ item, index }) => UserRow(item, props, loginUser, index)}
         keyExtractor={(item: any) => item.id}
       />
     </SafeAreaView >
