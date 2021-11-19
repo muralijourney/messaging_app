@@ -26,37 +26,10 @@ beforeAll(() => {
 it('renders correctly', async () => {
   const initialState = { output: 10 }
   const mockStore = configureStore()
-  let store, wrapper
+  let store;
   store = mockStore(initialState)
   const { getByTestId } = render(<Provider store={store}><App /></Provider>)
-  const row = await getByTestId('row0');
-  const row1 = await getByTestId('row1');
-
-
+  fireEvent.press(getByTestId('row0'));
+  const HomeScreen = await getByTestId('home');
+  expect(getByTestId('home')).toEqual(HomeScreen);
 });
-
-
-
-// describe('Login',()=>{
-//    let wrapper;
-
-//   //  beforeEach(()=>{
-//   //    wrapper = shallow(<App />)
-//   //  })
-
-//   it('works', () => {
-//     //  expect(2+2).toEqual(4);
-//     const tree = renderer.create(<App />).toJSON();
-
-//   });
-// });
-
-// import * as redux from "react-redux";
-// describe('dispatch mock', function(){    
-//     it('should mock dispatch', function(){
-//       const spy = jest.spyOn(redux, 'useSelector')
-//       spy.mockReturnValue({ username:'test' })
-
-//     })
-// });
-

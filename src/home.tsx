@@ -76,7 +76,7 @@ const HomeScreen = (props: any) => {
   }, []);
 
   return (
-    <SafeAreaView style={{ backgroundColor: Colour.WHITE }}>
+    <SafeAreaView testID="home" style={{ backgroundColor: Colour.WHITE }}>
       <FlatList
         style={{ height: '100%' }}
          ListEmptyComponent={() =>
